@@ -16,11 +16,11 @@ export const music = [
     u: "https://soundcloud.com/search?q={{{s}}}",
   },
   {
-  c: "Music",     // Main category
-  d: "music.apple.com",   // Base domain
-  s: "Apple Music",    // Display name
-  sc: "Music", // Sub-category
-  t: "apl",         // Bang command
-  u: "https://music.apple.com/us/search?term={{{s}}}"   // Search URL pattern
-  }
+    c: "Music",
+    d: "music.apple.com",
+    s: "Apple Music",
+    sc: "Music",
+    t: "am",
+    u: "https://music.apple.com/search?term={{{s}}}"
+  },
 ];
