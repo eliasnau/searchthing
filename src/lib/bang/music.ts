@@ -22,5 +22,13 @@ export const music = [
   sc: "Music", // Sub-category
   t: "apl",         // Bang command
   u: "https://music.apple.com/us/search?term={{{s}}}"   // Search URL pattern
+  },
+  {
+    c: "Music",     // Main category
+    d: "music.amazon.com",   // Base domain
+    s: "Amazon Music",    // Display name
+    sc: "Music", // Sub-category
+    t: "!am",         // Bang command
+    u: "https://music.amazon.com/search/{{{s}}}"   // Search URL pattern
   }
 ];
