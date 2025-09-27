@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const searchBang = request.nextUrl.searchParams.get("default") ?? null;
 
     if (!rawQuery) {
-        return NextResponse.json({ error: "Please provide a search query" }, { status: 402 });
+        return NextResponse.json({ error: "Please provide a search query" }, { status: 400 });
     }
 
     after(async () => { });
