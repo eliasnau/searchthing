@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse, after } from "next/server";
-import bangs from "../lib/bangs";
+import bangs from "@/lib/bangs";
 
 export const runtime = "edge";
 
