@@ -25,6 +25,7 @@ type BrowserType = "chrome" | "firefox" | "chromium";
 
 export function AddToBrowser() {
 	const [browser, setBrowser] = useState<BrowserType>("chrome");
+	const [isExtensionInstalled, setIsExtensionInstalled] = useState(false);
 
 	useEffect(() => {
 		const userAgent = navigator.userAgent.toLowerCase();
@@ -41,7 +42,35 @@ export function AddToBrowser() {
 		} else if (userAgent.includes("chrome") || userAgent.includes("chromium")) {
 			setBrowser("chrome");
 		}
+
+		const checkExtension = async () => {
+			try {
+				const extensionId = "oilahejhenoeljbicconidaicggjemej";
+
+				// @ts-ignore - chrome is available in browser context
+				if (typeof chrome !== "undefined" && chrome.runtime) {
+					// @ts-ignore
+					chrome.runtime.sendMessage(
+						extensionId,
+						{ action: "checkInstalled" },
+						(response: any) => {
+							if (response && response.installed) {
+								setIsExtensionInstalled(true);
+							}
+						},
+					);
+				}
+			} catch (error) {
+				console.log("Extension check failed:", error);
+			}
+		};
+
+		checkExtension();
 	}, []);
+
+	if (isExtensionInstalled) {
+		return null;
+	}
 
 	const getBrowserIcon = () => {
 		return <Chrome className="mr-2 w-3 h-3" />;
