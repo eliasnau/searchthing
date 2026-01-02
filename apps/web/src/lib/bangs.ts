@@ -1,285 +1,288 @@
 export type Bang = {
-    category: string;
-    siteUrl: string;
-    service: string;
-    bang: string;
-    searchTemplate: string;
-}
+	category: string;
+	siteUrl: string;
+	service: string;
+	bang: string;
+	searchTemplate: string;
+	handler?: (cleanQuery: string) => string;
+};
 
 const bangs: Bang[] = [
-    {
-        category: "Search",
-        siteUrl: "www.google.com",
-        service: "Google",
-        bang: "g",
-        searchTemplate: "https://www.google.com/search?q=%s"
-    },
-    {
-        category: "Search",
-        siteUrl: "www.duckduckgo.com",
-        service: "DuckDuckGo",
-        bang: "dd",
-        searchTemplate: "https://duckduckgo.com/?q=%s"
-    },
-    {
-        category: "Search",
-        siteUrl: "www.bing.com",
-        service: "Bing",
-        bang: "b",
-        searchTemplate: "https://www.bing.com/search?q=%s"
-    },
-    {
-        category: "Search",
-        siteUrl: "www.startpage.com",
-        service: "Startpage",
-        bang: "sp",
-        searchTemplate: "https://www.startpage.com/do/search?q=%s"
-    },
-    {
-        category: "Search",
-        siteUrl: "www.ecosia.org",
-        service: "Ecosia",
-        bang: "eco",
-        searchTemplate: "https://www.ecosia.org/search?q=%s"
-    },
-    {
-        category: "Search",
-        siteUrl: "kagi.com",
-        service: "Kagi",
-        bang: "kg",
-        searchTemplate: "https://kagi.com/search?q=%s"
-    },
-    {
-        category: "Search",
-        siteUrl: "search.brave.com",
-        service: "Brave Search",
-        bang: "br",
-        searchTemplate: "https://search.brave.com/search?q=%s"
-    },
-    {
-        category: "Search",
-        siteUrl: "search.surfshark.com",
-        service: "Surfshark Search",
-        bang: "sf",
-        searchTemplate: "https://search.surfshark.com/results?query=%s"
-    },
-    {
-        category: "Search",
-        siteUrl: "www.qwant.com",
-        service: "Qwant",
-        bang: "qw",
-        searchTemplate: "https://www.qwant.com/?q=%s"
-    },
-    {
-        category: "AI",
-        siteUrl: "www.t3.chat",
-        service: "T3 Chat",
-        bang: "t3",
-        searchTemplate: "https://www.t3.chat/new?q=%s"
-    },
-    {
-        category: "AI",
-        siteUrl: "chat.openai.com",
-        service: "ChatGPT",
-        bang: "gpt",
-        searchTemplate: "https://chat.openai.com/?q=%s"
-    },
-    {
-        category: "AI",
-        siteUrl: "claude.ai",
-        service: "Claude",
-        bang: "cla",
-        searchTemplate: "https://claude.ai/new?q=%s"
-    },
-    {
-        category: "AI",
-        siteUrl: "perplexity.ai",
-        service: "Perplexity",
-        bang: "per",
-        searchTemplate: "https://www.perplexity.ai/search?q=%s"
-    },
-    {
-        category: "AI",
-        siteUrl: "huggingface.co",
-        service: "Hugging Face",
-        bang: "hf",
-        searchTemplate: "https://huggingface.co/spaces?query=%s"
-    },
-    {
-        category: "Dev",
-        siteUrl: "github.com",
-        service: "GitHub",
-        bang: "gh",
-        searchTemplate: "https://github.com/search?q=%s"
-    },
-    {
-        category: "Dev",
-        siteUrl: "github.com/new",
-        service: "GitHub Repo",
-        bang: "ghr",
-        searchTemplate: "https://github.com/%s"
-    },
-    {
-        category: "Dev",
-        siteUrl: "stackoverflow.com",
-        service: "Stack Overflow",
-        bang: "so",
-        searchTemplate: "https://stackoverflow.com/search?q=%s"
-    },
-    {
-        category: "Dev",
-        siteUrl: "npmjs.com",
-        service: "npm",
-        bang: "npm",
-        searchTemplate: "https://www.npmjs.com/search?q=%s"
-    },
-    {
-        category: "Streaming",
-        siteUrl: "youtube.com",
-        service: "YouTube",
-        bang: "yt",
-        searchTemplate: "https://www.youtube.com/results?search_query=%s"
-    },
-    {
-        category: "Streaming",
-        siteUrl: "netflix.com",
-        service: "Netflix",
-        bang: "nf",
-        searchTemplate: "https://www.netflix.com/search?q=%s"
-    },
-    {
-        category: "Streaming",
-        siteUrl: "amazon.com",
-        service: "Prime Video",
-        bang: "pv",
-        searchTemplate: "https://www.amazon.com/s?k=%s&i=instant-video"
-    },
-    {
-        category: "Streaming",
-        siteUrl: "www.twitch.tv",
-        service: "Twitch",
-        bang: "tw",
-        searchTemplate: "https://www.twitch.tv/search?term=%s"
-    },
-    {
-        category: "Streaming",
-        siteUrl: "www.imdb.com",
-        service: "IMDB",
-        bang: "imdb",
-        searchTemplate: "https://www.imdb.com/find?q=%s"
-    },
-    {
-        category: "Social",
-        siteUrl: "twitter.com",
-        service: "X (Twitter)",
-        bang: "x",
-        searchTemplate: "https://twitter.com/search?q=%s"
-    },
-    {
-        category: "Social",
-        siteUrl: "facebook.com",
-        service: "Facebook",
-        bang: "fb",
-        searchTemplate: "https://www.facebook.com/search/top?q=%s"
-    },
-    {
-        category: "Social",
-        siteUrl: "instagram.com",
-        service: "Instagram",
-        bang: "insta",
-        searchTemplate: "https://www.instagram.com/explore/tags/%s/"
-    },
-    {
-        category: "Social",
-        siteUrl: "reddit.com",
-        service: "Reddit",
-        bang: "r",
-        searchTemplate: "https://www.reddit.com/search/?q=%s"
-    },
-    {
-        category: "Gaming",
-        siteUrl: "store.steampowered.com",
-        service: "Steam",
-        bang: "ste",
-        searchTemplate: "https://store.steampowered.com/search/?term=%s"
-    },
-    {
-        category: "Gaming",
-        siteUrl: "store.epicgames.com",
-        service: "Epic Games",
-        bang: "epic",
-        searchTemplate: "https://store.epicgames.com/en-US/browse?q=%s"
-    },
-    {
-        category: "Gaming",
-        siteUrl: "instant-gaming.com",
-        service: "Instant Gaming",
-        bang: "ig",
-        searchTemplate: "https://www.instant-gaming.com/en/search/?query=%s"
-    },
-    {
-        category: "Shopping",
-        siteUrl: "amazon.com",
-        service: "Amazon",
-        bang: "a",
-        searchTemplate: "https://www.amazon.com/s?k=%s"
-    },
-    {
-        category: "Shopping",
-        siteUrl: "aliexpress.com",
-        service: "AliExpress",
-        bang: "ali",
-        searchTemplate: "https://www.aliexpress.com/wholesale?SearchText=%s"
-    },
-    {
-        category: "Images",
-        siteUrl: "unsplash.com",
-        service: "Unsplash",
-        bang: "un",
-        searchTemplate: "https://unsplash.com/s/photos/%s"
-    },
-    {
-        category: "Images",
-        siteUrl: "pixabay.com",
-        service: "Pixabay",
-        bang: "pxb",
-        searchTemplate: "https://pixabay.com/images/search/%s/"
-    },
-    {
-        category: "Images",
-        siteUrl: "images.google.com",
-        service: "Google Images",
-        bang: "gi",
-        searchTemplate: "https://www.google.com/search?tbm=isch&q=%s"
-    },
-    {
-        category: "Music",
-        siteUrl: "spotify.com",
-        service: "Spotify",
-        bang: "spotify",
-        searchTemplate: "https://open.spotify.com/search/%s"
-    },
-    {
-        category: "Music",
-        siteUrl: "soundcloud.com",
-        service: "SoundCloud",
-        bang: "sc",
-        searchTemplate: "https://soundcloud.com/search?q=%s"
-    },
-    {
-        category: "Music",
-        siteUrl: "music.apple.com",
-        service: "Apple Music",
-        bang: "apl",
-        searchTemplate: "https://music.apple.com/us/search?term=%s"
-    },
-    {
-        category: "Music",
-        siteUrl: "music.amazon.com",
-        service: "Amazon Music",
-        bang: "!am",
-        searchTemplate: "https://music.amazon.com/search/%s"
-    },
-]
+	{
+		category: "Search",
+		siteUrl: "www.google.com",
+		service: "Google",
+		bang: "g",
+		searchTemplate: "https://www.google.com/search?q=%s",
+	},
+	{
+		category: "Search",
+		siteUrl: "www.duckduckgo.com",
+		service: "DuckDuckGo",
+		bang: "dd",
+		searchTemplate: "https://duckduckgo.com/?q=%s",
+	},
+	{
+		category: "Search",
+		siteUrl: "www.bing.com",
+		service: "Bing",
+		bang: "b",
+		searchTemplate: "https://www.bing.com/search?q=%s",
+	},
+	{
+		category: "Search",
+		siteUrl: "www.startpage.com",
+		service: "Startpage",
+		bang: "sp",
+		searchTemplate: "https://www.startpage.com/do/search?q=%s",
+	},
+	{
+		category: "Search",
+		siteUrl: "www.ecosia.org",
+		service: "Ecosia",
+		bang: "eco",
+		searchTemplate: "https://www.ecosia.org/search?q=%s",
+	},
+	{
+		category: "Search",
+		siteUrl: "kagi.com",
+		service: "Kagi",
+		bang: "kg",
+		searchTemplate: "https://kagi.com/search?q=%s",
+	},
+	{
+		category: "Search",
+		siteUrl: "search.brave.com",
+		service: "Brave Search",
+		bang: "br",
+		searchTemplate: "https://search.brave.com/search?q=%s",
+	},
+	{
+		category: "Search",
+		siteUrl: "search.surfshark.com",
+		service: "Surfshark Search",
+		bang: "sf",
+		searchTemplate: "https://search.surfshark.com/results?query=%s",
+	},
+	{
+		category: "Search",
+		siteUrl: "www.qwant.com",
+		service: "Qwant",
+		bang: "qw",
+		searchTemplate: "https://www.qwant.com/?q=%s",
+	},
+	{
+		category: "AI",
+		siteUrl: "www.t3.chat",
+		service: "T3 Chat",
+		bang: "t3",
+		searchTemplate: "https://www.t3.chat/new?q=%s",
+	},
+	{
+		category: "AI",
+		siteUrl: "chat.openai.com",
+		service: "ChatGPT",
+		bang: "gpt",
+		searchTemplate: "https://chat.openai.com/?q=%s",
+	},
+	{
+		category: "AI",
+		siteUrl: "claude.ai",
+		service: "Claude",
+		bang: "cla",
+		searchTemplate: "https://claude.ai/new?q=%s",
+	},
+	{
+		category: "AI",
+		siteUrl: "perplexity.ai",
+		service: "Perplexity",
+		bang: "per",
+		searchTemplate: "https://www.perplexity.ai/search?q=%s",
+	},
+	{
+		category: "AI",
+		siteUrl: "huggingface.co",
+		service: "Hugging Face",
+		bang: "hf",
+		searchTemplate: "https://huggingface.co/spaces?query=%s",
+	},
+	{
+		category: "Dev",
+		siteUrl: "github.com",
+		service: "GitHub",
+		bang: "gh",
+		searchTemplate: "https://github.com/search?q=%s",
+	},
+	{
+		category: "Dev",
+		siteUrl: "github.com/new",
+		service: "GitHub Repo",
+		bang: "ghr",
+		searchTemplate: "https://github.com/%s",
+		handler: (cleanQuery) =>
+			encodeURIComponent(cleanQuery).replace(/%2F/g, "/"),
+	},
+	{
+		category: "Dev",
+		siteUrl: "stackoverflow.com",
+		service: "Stack Overflow",
+		bang: "so",
+		searchTemplate: "https://stackoverflow.com/search?q=%s",
+	},
+	{
+		category: "Dev",
+		siteUrl: "npmjs.com",
+		service: "npm",
+		bang: "npm",
+		searchTemplate: "https://www.npmjs.com/search?q=%s",
+	},
+	{
+		category: "Streaming",
+		siteUrl: "youtube.com",
+		service: "YouTube",
+		bang: "yt",
+		searchTemplate: "https://www.youtube.com/results?search_query=%s",
+	},
+	{
+		category: "Streaming",
+		siteUrl: "netflix.com",
+		service: "Netflix",
+		bang: "nf",
+		searchTemplate: "https://www.netflix.com/search?q=%s",
+	},
+	{
+		category: "Streaming",
+		siteUrl: "amazon.com",
+		service: "Prime Video",
+		bang: "pv",
+		searchTemplate: "https://www.amazon.com/s?k=%s&i=instant-video",
+	},
+	{
+		category: "Streaming",
+		siteUrl: "www.twitch.tv",
+		service: "Twitch",
+		bang: "tw",
+		searchTemplate: "https://www.twitch.tv/search?term=%s",
+	},
+	{
+		category: "Streaming",
+		siteUrl: "www.imdb.com",
+		service: "IMDB",
+		bang: "imdb",
+		searchTemplate: "https://www.imdb.com/find?q=%s",
+	},
+	{
+		category: "Social",
+		siteUrl: "twitter.com",
+		service: "X (Twitter)",
+		bang: "x",
+		searchTemplate: "https://twitter.com/search?q=%s",
+	},
+	{
+		category: "Social",
+		siteUrl: "facebook.com",
+		service: "Facebook",
+		bang: "fb",
+		searchTemplate: "https://www.facebook.com/search/top?q=%s",
+	},
+	{
+		category: "Social",
+		siteUrl: "instagram.com",
+		service: "Instagram",
+		bang: "insta",
+		searchTemplate: "https://www.instagram.com/explore/tags/%s/",
+	},
+	{
+		category: "Social",
+		siteUrl: "reddit.com",
+		service: "Reddit",
+		bang: "r",
+		searchTemplate: "https://www.reddit.com/search/?q=%s",
+	},
+	{
+		category: "Gaming",
+		siteUrl: "store.steampowered.com",
+		service: "Steam",
+		bang: "ste",
+		searchTemplate: "https://store.steampowered.com/search/?term=%s",
+	},
+	{
+		category: "Gaming",
+		siteUrl: "store.epicgames.com",
+		service: "Epic Games",
+		bang: "epic",
+		searchTemplate: "https://store.epicgames.com/en-US/browse?q=%s",
+	},
+	{
+		category: "Gaming",
+		siteUrl: "instant-gaming.com",
+		service: "Instant Gaming",
+		bang: "ig",
+		searchTemplate: "https://www.instant-gaming.com/en/search/?query=%s",
+	},
+	{
+		category: "Shopping",
+		siteUrl: "amazon.com",
+		service: "Amazon",
+		bang: "a",
+		searchTemplate: "https://www.amazon.com/s?k=%s",
+	},
+	{
+		category: "Shopping",
+		siteUrl: "aliexpress.com",
+		service: "AliExpress",
+		bang: "ali",
+		searchTemplate: "https://www.aliexpress.com/wholesale?SearchText=%s",
+	},
+	{
+		category: "Images",
+		siteUrl: "unsplash.com",
+		service: "Unsplash",
+		bang: "un",
+		searchTemplate: "https://unsplash.com/s/photos/%s",
+	},
+	{
+		category: "Images",
+		siteUrl: "pixabay.com",
+		service: "Pixabay",
+		bang: "pxb",
+		searchTemplate: "https://pixabay.com/images/search/%s/",
+	},
+	{
+		category: "Images",
+		siteUrl: "images.google.com",
+		service: "Google Images",
+		bang: "gi",
+		searchTemplate: "https://www.google.com/search?tbm=isch&q=%s",
+	},
+	{
+		category: "Music",
+		siteUrl: "spotify.com",
+		service: "Spotify",
+		bang: "spotify",
+		searchTemplate: "https://open.spotify.com/search/%s",
+	},
+	{
+		category: "Music",
+		siteUrl: "soundcloud.com",
+		service: "SoundCloud",
+		bang: "sc",
+		searchTemplate: "https://soundcloud.com/search?q=%s",
+	},
+	{
+		category: "Music",
+		siteUrl: "music.apple.com",
+		service: "Apple Music",
+		bang: "apl",
+		searchTemplate: "https://music.apple.com/us/search?term=%s",
+	},
+	{
+		category: "Music",
+		siteUrl: "music.amazon.com",
+		service: "Amazon Music",
+		bang: "!am",
+		searchTemplate: "https://music.amazon.com/search/%s",
+	},
+];
 
 export default bangs;
