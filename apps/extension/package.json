@@ -1,8 +1,8 @@
 {
-  "name": "extension",
-  "description": "manifest.json description",
+  "name": "searchthing-extension",
+  "description": "SearchThing extension",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "wxt --port 5555",
@@ -21,6 +21,7 @@
   "devDependencies": {
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@wxt-dev/auto-icons": "^1.1.0",
     "@wxt-dev/module-react": "^1.1.5",
     "typescript": "^5.9.3",
     "wxt": "^0.20.6"
