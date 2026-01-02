@@ -2,6 +2,7 @@
 import { useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import bangs from "@/lib/bangs";
+import type { Route } from "next";
 
 function SearchContent() {
   const router = useRouter();
@@ -56,7 +57,7 @@ function SearchContent() {
     }
 
     if (searchUrl) {
-      router.replace(searchUrl);
+      router.replace(searchUrl as Route);
     }
   }, [q, router]);
 
