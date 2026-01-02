@@ -280,7 +280,7 @@ const bangs: Bang[] = [
 		category: "Music",
 		siteUrl: "music.amazon.com",
 		service: "Amazon Music",
-		bang: "!am",
+		bang: "am",
 		searchTemplate: "https://music.amazon.com/search/%s",
 	},
 ];

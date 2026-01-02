@@ -61,7 +61,7 @@ export function AddToBrowser() {
 					);
 				}
 			} catch (error) {
-				console.log("Extension check failed:", error);
+				// Extension not installed, silently ignore
 			}
 		};
 
