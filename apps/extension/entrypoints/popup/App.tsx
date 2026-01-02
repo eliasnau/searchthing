@@ -10,8 +10,7 @@ function App() {
 	};
 
 	const handleRateExtension = () => {
-		// TODO: Update this URL with the actual Chrome Web Store extension URL
-		window.open("https://chrome.google.com/webstore", "_blank");
+		window.open("https://chromewebstore.google.com/detail/searchthing/oilahejhenoeljbicconidaicggjemej", "_blank");
 	};
 
 	return (
