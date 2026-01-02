@@ -8,7 +8,6 @@ export default defineConfig({
   },
   manifest: {
     name: "SearchThing",
-
     chrome_settings_overrides: {
       search_provider: {
         name: "SearchThing",
