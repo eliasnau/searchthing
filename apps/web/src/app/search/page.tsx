@@ -2,6 +2,9 @@
 import { useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import bangs from "@/lib/bangs";
+import { getBangOverrides } from "@/lib/bang-overrides";
+import { parseSearchQuery } from "@/lib/bang-parser";
+import { resolveBang, buildSearchUrl } from "@/lib/bang-resolver";
 import type { Route } from "next";
 
 function SearchContent() {
@@ -11,58 +14,17 @@ function SearchContent() {
 
 	useEffect(() => {
 		if (!q) return;
-		let searchUrl: string | undefined;
 
-		const query = q;
-		const bangMatch = query.match(/!(\S+)/i);
-		const bangCandidate = bangMatch?.[1]?.toLowerCase();
+		const overrides = getBangOverrides();
 
-		const shortcutMatches = query.match(/#(\S+)/g) || [];
-		const shortcuts = shortcutMatches.map((match) =>
-			match.slice(1).toLowerCase(),
-		);
+		const parsed = parseSearchQuery(q);
 
-		const defaultEngine = localStorage.getItem("defaultEngine") || "g";
+		const selectedBang = resolveBang(parsed.bang, bangs, overrides);
 
-		const defaultBang =
-			bangs.find((b) => b.bang === defaultEngine) ||
-			bangs.find((b) => b.bang === "g") ||
-			bangs[0];
-		const selectedBang = bangCandidate
-			? bangs.find((b) => b.bang === bangCandidate) || defaultBang
-			: defaultBang;
-
-		let cleanQuery = query.replace(/!\S+\s*/i, "").trim();
-
-		shortcuts.forEach((shortcut) => {
-			const bangMatch = bangs.find((b) => b.bang === shortcut);
-			if (bangMatch && bangMatch.searchTemplate) {
-				const shortcutRegex = new RegExp(`#${shortcut}\\b`, "g");
-				while (shortcutRegex.test(cleanQuery)) {
-					cleanQuery = cleanQuery
-						.replace(shortcutRegex, bangMatch.searchTemplate)
-						.replace(/\s+/g, " ")
-						.trim();
-				}
-			}
-		});
-
-		if (cleanQuery === "") {
-			searchUrl = "https://" + selectedBang.siteUrl;
-		} else {
-			let processedQuery: string;
-
-			if (selectedBang.handler) {
-				processedQuery = selectedBang.handler(cleanQuery);
-			} else {
-				processedQuery = encodeURIComponent(cleanQuery);
-			}
-
-			searchUrl = selectedBang.searchTemplate.replace("%s", processedQuery);
-		}
+		const searchUrl = buildSearchUrl(parsed.cleanQuery, selectedBang);
 
 		if (searchUrl) {
-			router.replace(searchUrl as Route);
+			window.location.replace(searchUrl);
 		}
 	}, [q, router]);
 
@@ -75,7 +37,7 @@ export default function Search() {
 	return (
 		<Suspense
 			fallback={
-				<div className="flex justify-center items-center min-h-screen bg-background dark:bg-gray-900" />
+				<div className="flex justify-center items-center min-h-screen bg-background" />
 			}
 		>
 			<SearchContent />
