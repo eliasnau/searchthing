@@ -10,14 +10,16 @@ function SearchContent() {
 
   useEffect(() => {
     if (!q) return;
-    let searchUrl;
+    let searchUrl: string | undefined;
 
     const query = q;
     const bangMatch = query.match(/!(\S+)/i);
     const bangCandidate = bangMatch?.[1]?.toLowerCase();
 
     const shortcutMatches = query.match(/#(\S+)/g) || [];
-    const shortcuts = shortcutMatches.map((match) => match.slice(1).toLowerCase());
+    const shortcuts = shortcutMatches.map((match) =>
+      match.slice(1).toLowerCase(),
+    );
 
     const defaultEngine = localStorage.getItem("defaultEngine") || "g";
 
@@ -33,11 +35,11 @@ function SearchContent() {
 
     shortcuts.forEach((shortcut) => {
       const bangMatch = bangs.find((b) => b.bang === shortcut);
-      if (bangMatch && bangMatch.s) {
+      if (bangMatch && bangMatch.searchTemplate) {
         const shortcutRegex = new RegExp(`#${shortcut}\\b`, "g");
-        while (shortcutRegex.test(cleanQuery)) {
+        while (shortcutRegex.test(cleanQuery)) {    
           cleanQuery = cleanQuery
-            .replace(shortcutRegex, bangMatch.s)
+            .replace(shortcutRegex, bangMatch.searchTemplate)
             .replace(/\s+/g, " ")
             .trim();
         }
@@ -49,7 +51,7 @@ function SearchContent() {
     } else {
       searchUrl = selectedBang.searchTemplate.replace(
         "%s",
-        encodeURIComponent(cleanQuery).replace(/%2F/g, "/")
+        encodeURIComponent(cleanQuery).replace(/%2F/g, "/"),
       );
     }
 
