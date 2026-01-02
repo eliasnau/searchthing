@@ -1,0 +1,10 @@
+packages:
+  - apps/*
+  - packages/*
+catalog:
+  dotenv: ^17.2.2
+  zod: ^4.1.13
+  react: ^19.2.3
+  react-dom: ^19.2.3
+  "@types/react": ^19.2.7
+  "@types/react-dom": ^19.2.3
