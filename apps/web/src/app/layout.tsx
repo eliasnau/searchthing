@@ -16,8 +16,42 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "searchthing",
-  description: "searchthing",
+  title: "SearchThing",
+  description:
+    "A fast search engine with powerful bang commands for quick access to your favorite sites",
+  keywords: [
+    "searchthing",
+    "SearchThing",
+    "Search Thing",
+    "search",
+    "bangs",
+    "search engine",
+  ],
+  metadataBase: new URL("https://searchthing.xyz"),
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "SearchThing",
+  },
+  openGraph: {
+    title: "SearchThing - Simple Search with Bang Commands",
+    description:
+      "A minimalist search engine with powerful bang commands for quick access to your favorite sites",
+    url: "https://searchthing.xyz",
+    siteName: "SearchThing",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SearchThing - Simple Search & Bang Commands",
+    description:
+      "A minimalist search engine with powerful bang commands for quick access to your favorite sites",
+  },
+  verification: {
+    google: "4fe27WCmJ6kGNx9cRxdU3hGVERDikayxGTzpScCeJ7Y",
+  },
 };
 
 export default function RootLayout({
