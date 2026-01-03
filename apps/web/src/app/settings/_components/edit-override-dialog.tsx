@@ -130,25 +130,23 @@ export function EditOverrideDialog({
 						<div>
 							<Label>Select Bang</Label>
 							<Popover open={comboboxOpen} onOpenChange={setComboboxOpen}>
-								<PopoverTrigger asChild>
-									<Button
-										variant="outline"
-										role="combobox"
-										aria-expanded={comboboxOpen}
-										className="justify-between w-full mt-1"
-									>
-										{selectedBangObj ? (
-											<span>
-												<code className="px-1.5 py-0.5 mr-2 text-xs font-mono rounded bg-muted">
-													!{selectedBangObj.bang}
-												</code>
-												{selectedBangObj.service}
-											</span>
-										) : (
-											"Select bang to override..."
-										)}
-										<ChevronsUpDown className="ml-2 w-4 h-4 opacity-50 shrink-0" />
-									</Button>
+								<PopoverTrigger render={<Button
+									variant="outline"
+									role="combobox"
+									aria-expanded={comboboxOpen}
+									className="justify-between w-full mt-1"
+								/>}>
+									{selectedBangObj ? (
+										<span>
+											<code className="px-1.5 py-0.5 mr-2 text-xs font-mono rounded bg-muted">
+												!{selectedBangObj.bang}
+											</code>
+											{selectedBangObj.service}
+										</span>
+									) : (
+										"Select bang to override..."
+									)}
+									<ChevronsUpDown className="ml-2 w-4 h-4 opacity-50 shrink-0" />
 								</PopoverTrigger>
 								<PopoverContent className="p-0 w-full">
 									<Command>

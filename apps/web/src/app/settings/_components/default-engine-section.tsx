@@ -59,25 +59,24 @@ export function DefaultEngineSection() {
 					</p>
 				</div>
 				<Popover open={open} onOpenChange={setOpen}>
-					<PopoverTrigger asChild>
-						<Button
-							variant="outline"
-							role="combobox"
-							aria-expanded={open}
-							className="justify-between w-[280px]"
-						>
-							{defaultEngineObj ? (
-								<span className="flex items-center">
-									<code className="px-1.5 py-0.5 mr-2 text-xs font-mono rounded bg-muted">
-										!{defaultEngineObj.bang}
-									</code>
-									{defaultEngineObj.service}
-								</span>
-							) : (
-								"Select engine..."
-							)}
-							<ChevronsUpDown className="ml-2 w-4 h-4 opacity-50 shrink-0" />
-						</Button>
+					<PopoverTrigger render={<Button
+						variant="outline"
+						role="combobox"
+						aria-expanded={open}
+						className="justify-between w-[280px]"
+					/>}>
+
+						{defaultEngineObj ? (
+							<span className="flex items-center">
+								<code className="px-1.5 py-0.5 mr-2 text-xs font-mono rounded bg-muted">
+									!{defaultEngineObj.bang}
+								</code>
+								{defaultEngineObj.service}
+							</span>
+						) : (
+							"Select engine..."
+						)}
+						<ChevronsUpDown className="ml-2 w-4 h-4 opacity-50 shrink-0" />
 					</PopoverTrigger>
 					<PopoverContent className="p-0 w-[280px]">
 						<Command>

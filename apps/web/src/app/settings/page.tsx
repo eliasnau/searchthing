@@ -7,7 +7,6 @@ import { DefaultEngineSection } from "./_components/default-engine-section";
 import { BangOverridesSection } from "./_components/bang-overrides-section";
 
 export default function SettingsPage() {
-
 	return (
 		<div className="flex flex-col min-h-screen bg-background">
 			<header className="flex-none p-4 w-full">
@@ -33,7 +32,7 @@ export default function SettingsPage() {
 				</div>
 
 				<div className="mx-auto space-y-12 max-w-2xl">
-					<DefaultEngineSection/>
+					<DefaultEngineSection />
 
 					<Separator />
 

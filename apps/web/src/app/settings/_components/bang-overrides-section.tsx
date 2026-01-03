@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus } from "@/components/animate-ui/icons/plus";
 import { Trash2 } from "@/components/animate-ui/icons/trash-2";
+import { Globe } from "lucide-react";
 import {
 	getBangOverrides,
 	resetOverride,
@@ -11,11 +12,13 @@ import {
 } from "@/lib/bang-overrides";
 import bangs from "@/lib/bangs";
 import { EditOverrideDialog } from "./edit-override-dialog";
+import { RegionOverrideDialog } from "./region-override-dialog";
 
 export function BangOverridesSection() {
 	const [overrides, setOverrides] = useState<BangOverrides>({});
 	const [isAddingOverride, setIsAddingOverride] = useState(false);
 	const [editingBang, setEditingBang] = useState<string | null>(null);
+	const [regionDialogOpen, setRegionDialogOpen] = useState(false);
 
 	useEffect(() => {
 		setOverrides(getBangOverrides());
@@ -57,13 +60,39 @@ export function BangOverridesSection() {
 	return (
 		<>
 			<div className="space-y-6">
-				<div className="flex justify-between items-center">
-					<div>
-						<h2 className="text-2xl font-semibold">Bang Overrides</h2>
-						<p className="text-sm text-muted-foreground">
-							Customize bang commands with your own URLs
-						</p>
+				<div>
+					<h2 className="text-2xl font-semibold">Bang Overrides</h2>
+					<p className="text-sm text-muted-foreground">
+						Customize bang commands with your own URLs
+					</p>
+				</div>
+
+				<div className="p-4 rounded-lg border bg-card/50">
+					<div className="flex justify-between items-start gap-4">
+						<div className="space-y-1">
+							<div className="flex items-center gap-2">
+								<Globe size={18} className="text-muted-foreground" />
+								<h3 className="font-medium">Quick Regional Setup</h3>
+							</div>
+							<p className="text-sm text-muted-foreground">
+								Set your country to automatically configure regional versions of
+								services. This will override the default URLs with
+								region-specific ones.
+							</p>
+						</div>
+						<Button
+							onClick={() => setRegionDialogOpen(true)}
+							variant="outline"
+							className="flex-shrink-0"
+						>
+							<Globe size={16} className="mr-2" />
+							Set Region
+						</Button>
 					</div>
+				</div>
+
+				<div className="flex justify-between items-center">
+					<h3 className="text-lg font-medium">Custom Overrides</h3>
 					<Button
 						onClick={openAddDialog}
 						className="bg-foreground text-background hover:bg-foreground/90"
@@ -139,6 +168,12 @@ export function BangOverridesSection() {
 				onClose={closeDialog}
 				isAdding={isAddingOverride}
 				editingBang={editingBang}
+				onSuccess={refreshOverrides}
+			/>
+
+			<RegionOverrideDialog
+				open={regionDialogOpen}
+				onClose={() => setRegionDialogOpen(false)}
 				onSuccess={refreshOverrides}
 			/>
 		</>
