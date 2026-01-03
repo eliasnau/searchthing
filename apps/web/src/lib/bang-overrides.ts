@@ -30,7 +30,6 @@ export function getBangOverrides(): BangOverrides {
 
 		return parsed;
 	} catch {
-		// Invalid JSON or localStorage unavailable
 		return {};
 	}
 }
@@ -45,7 +44,6 @@ export function setBangOverrides(overrides: BangOverrides): boolean {
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides));
 		return true;
 	} catch {
-		// localStorage full or unavailable
 		return false;
 	}
 }
@@ -150,4 +148,31 @@ export function applyOverrideToBang(
 export function applyOverrides(defaultBangs: Bang[]): Bang[] {
 	const overrides = getBangOverrides();
 	return defaultBangs.map((bang) => applyOverrideToBang(bang, overrides));
+}
+
+/**
+ * Get default search engine from localStorage
+ */
+export function getDefaultEngine(): string {
+	if (typeof window === "undefined") return "g";
+
+	try {
+		return localStorage.getItem("defaultEngine") || "g";
+	} catch {
+		return "g";
+	}
+}
+
+/**
+ * Set default search engine in localStorage
+ */
+export function setDefaultEngine(bangName: string): boolean {
+	if (typeof window === "undefined") return false;
+
+	try {
+		localStorage.setItem("defaultEngine", bangName);
+		return true;
+	} catch {
+		return false;
+	}
 }
