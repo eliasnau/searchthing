@@ -1,6 +1,5 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import * as React from "react";
 
@@ -11,17 +10,29 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { isNullOrUndefined } from "node:util";
+import { AnimateIcon } from "./animate-ui/icons/icon";
+import { SunMoon } from "./animate-ui/icons/sun-moon";
+import { Sun } from "./animate-ui/icons/sun";
+import { Moon } from "./animate-ui/icons/moon";
 
 export function ModeToggle() {
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger render={<Button variant="outline" size="icon" />}>
-        <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        <span className="sr-only">Toggle theme</span>
-      </DropdownMenuTrigger>
+      <AnimateIcon animateOnHover>
+        <DropdownMenuTrigger render={<Button variant="ghost" size="icon" />}>
+          {theme === "dark" ? (
+            <Moon className="" />
+          ) : theme === "light" ? (
+            <Sun className="" />
+          ) : theme === "system" ? (
+            <SunMoon />
+          ) : null}
+          <span className="sr-only">Toggle theme</span>
+        </DropdownMenuTrigger>
+      </AnimateIcon>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>

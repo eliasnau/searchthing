@@ -2,7 +2,6 @@
 
 import bangs from "@/lib/bangs";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { ArrowLeft, Search, Plus, Github } from "lucide-react";
 import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
@@ -16,6 +15,7 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/mode-toggle";
 
 function baseUrlFromTemplate(template: string) {
     const m = template.match(/^https?:\/\/([^/]+)/i);
@@ -65,7 +65,7 @@ export default function BangsPage() {
                             <Github size={18} />
                             <span className="text-xs">GitHub</span>
                         </a>
-                        <ThemeToggle />
+                        <ModeToggle />
                     </div>
                 </div>
             </header>
