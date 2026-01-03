@@ -3,10 +3,41 @@
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft } from "@/components/animate-ui/icons/arrow-left";
+import { Download, Upload } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { DefaultEngineSection } from "./_components/default-engine-section";
 import { BangOverridesSection } from "./_components/bang-overrides-section";
+import {
+	exportSettings,
+	importSettings,
+	downloadSettingsFile,
+	uploadSettingsFile,
+} from "@/lib/settings-export";
+import { toast } from "sonner";
 
 export default function SettingsPage() {
+	const handleExport = () => {
+		const settings = exportSettings();
+		downloadSettingsFile(settings);
+		toast.success("Settings exported successfully");
+	};
+
+	const handleImport = () => {
+		uploadSettingsFile((data) => {
+			try {
+				importSettings(data);
+				toast.success("Settings imported successfully");
+				window.location.reload();
+			} catch (error) {
+				toast.error(
+					error instanceof Error
+						? error.message
+						: "Failed to import settings. Invalid file format.",
+				);
+			}
+		});
+	};
+
 	return (
 		<div className="flex flex-col min-h-screen bg-background">
 			<header className="flex-none p-4 w-full">
@@ -18,6 +49,16 @@ export default function SettingsPage() {
 						<ArrowLeft size={18} />
 						<span>Back</span>
 					</Link>
+					<div className="flex gap-2">
+						<Button variant="outline" size="sm" onClick={handleImport}>
+							<Upload size={16} className="mr-2" />
+							Import
+						</Button>
+						<Button variant="outline" size="sm" onClick={handleExport}>
+							<Download size={16} className="mr-2" />
+							Export
+						</Button>
+					</div>
 				</div>
 			</header>
 
