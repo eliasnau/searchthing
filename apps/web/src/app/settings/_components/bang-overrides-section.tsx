@@ -10,7 +10,7 @@ import {
 	resetOverride,
 	type BangOverrides,
 } from "@/lib/bang-overrides";
-import bangs from "@/lib/bangs";
+import bangs from "@/bangs";
 import { EditOverrideDialog } from "./edit-override-dialog";
 import { RegionOverrideDialog } from "./region-override-dialog";
 

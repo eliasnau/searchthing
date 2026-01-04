@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import bangs from "@/lib/bangs";
+import bangs from "@/bangs";
 import { getBangOverrides } from "@/lib/bang-overrides";
 import { parseSearchQuery } from "@/lib/bang-parser";
 import { resolveBang, buildSearchUrl } from "@/lib/bang-resolver";

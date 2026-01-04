@@ -25,7 +25,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import bangs from "@/lib/bangs";
+import bangs from "@/bangs";
 import { setOverride, type BangOverride } from "@/lib/bang-overrides";
 import { cn } from "@/lib/utils";
 
@@ -130,12 +130,16 @@ export function EditOverrideDialog({
 						<div>
 							<Label>Select Bang</Label>
 							<Popover open={comboboxOpen} onOpenChange={setComboboxOpen}>
-								<PopoverTrigger render={<Button
-									variant="outline"
-									role="combobox"
-									aria-expanded={comboboxOpen}
-									className="justify-between w-full mt-1"
-								/>}>
+								<PopoverTrigger
+									render={
+										<Button
+											variant="outline"
+											role="combobox"
+											aria-expanded={comboboxOpen}
+											className="justify-between w-full mt-1"
+										/>
+									}
+								>
 									{selectedBangObj ? (
 										<span>
 											<code className="px-1.5 py-0.5 mr-2 text-xs font-mono rounded bg-muted">

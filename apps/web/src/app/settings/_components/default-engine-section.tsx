@@ -17,7 +17,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import bangs from "@/lib/bangs";
+import bangs from "@/bangs";
 import {
 	getDefaultEngine,
 	setDefaultEngine as saveDefaultEngine,
@@ -59,13 +59,16 @@ export function DefaultEngineSection() {
 					</p>
 				</div>
 				<Popover open={open} onOpenChange={setOpen}>
-					<PopoverTrigger render={<Button
-						variant="outline"
-						role="combobox"
-						aria-expanded={open}
-						className="justify-between w-[280px]"
-					/>}>
-
+					<PopoverTrigger
+						render={
+							<Button
+								variant="outline"
+								role="combobox"
+								aria-expanded={open}
+								className="justify-between w-[280px]"
+							/>
+						}
+					>
 						{defaultEngineObj ? (
 							<span className="flex items-center">
 								<code className="px-1.5 py-0.5 mr-2 text-xs font-mono rounded bg-muted">
