@@ -5,7 +5,7 @@ export const printingBangs: Bang[] = [
 		category: "3D Printing",
 		siteUrl: "makerworld.com",
 		service: "MakerWorld",
-		bang: "makerworld",
+		bang: "mw",
 		searchTemplate: "https://makerworld.com/en/search/models?keyword=%s",
 	},
 ];
